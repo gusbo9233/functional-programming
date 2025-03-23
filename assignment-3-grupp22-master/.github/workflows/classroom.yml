@@ -1,0 +1,49 @@
+name: Autograding Tests
+'on':
+- push
+- repository_dispatch
+permissions:
+  checks: write
+  actions: read
+  contents: read
+jobs:
+  run-autograding-tests:
+    runs-on: ubuntu-latest
+    if: github.actor != 'github-classroom[bot]'
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+    - name: Required Tests
+      id: required-tests
+      uses: classroom-resources/autograding-io-grader@v1
+      with:
+        test-name: Required Tests
+        setup-command: echo "*** Setup ***" && env HOME="$(pwd)" cabal update && env
+          HOME="$(pwd)" cabal v1-install QuickCheck-2.14.3 && wget -q https://raw.githubusercontent.com/FunctionalProgramming1/Assignment3-Tests/master/main.hs
+          && echo "*** Compilation ***" && env HOME="$(pwd)" ghc main.hs && echo "***
+          Testing ***"
+        command: "./main"
+        input: ''
+        expected-output: |-
+          Exercise 1:
+          +++ OK, passed 100 tests.
+          Exercise 2:
+          +++ OK, passed 100 tests.
+          Exercise 3:
+          count: +++ OK, passed 100 tests.
+          labels: +++ OK, passed 100 tests.
+          height: +++ OK, passed 100 tests.
+          Exercise 4:
+          append: +++ OK, passed 100 tests.
+          elem: +++ OK, passed 100 tests.
+          last: +++ OK, passed 100 tests.
+          reverse: +++ OK, passed 100 tests.
+          filter: +++ OK, passed 100 tests.
+        comparison-method: contains
+        timeout: 5
+    - name: Autograding Reporter
+      uses: classroom-resources/autograding-grading-reporter@v1
+      env:
+        REQUIRED-TESTS_RESULTS: "${{steps.required-tests.outputs.result}}"
+      with:
+        runners: required-tests
