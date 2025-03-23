@@ -10,14 +10,14 @@ This repository contains various Haskell projects and assignments completed duri
 - **Files**: `main.hs` - Contains basic Haskell exercises and instructions for setting up Haskell development environment.
 
 ### Assignments
-- **Assignment 2** (`assignment-2-grupp22-master/`)
+- **Assignment 2** (`assignment-2/`)
   - Focus on function specifications, variants, and step-by-step evaluations
   - Includes exercises on recursive functions
 
-- **Assignment 3** (`assignment-3-grupp22-master/`)
+- **Assignment 3** (`assignment-3/`)
   - Advanced Haskell programming concepts
   
-- **Assignment 4** (`assignment-4-grupp22-master/`)
+- **Assignment 4** (`assignment-4/`)
   - Includes graph-related algorithms in Haskell
 
 ### Sudoku Solver
